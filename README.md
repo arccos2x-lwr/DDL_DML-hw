@@ -130,11 +130,11 @@ SHOW TABLES;
 
 ```
 SELECT 
-    tab.table_name AS 'Название таблицы',
+    tab.table_name AS 'tb_name',
     COALESCE(
         GROUP_CONCAT(kcu.column_name ORDER BY kcu.ordinal_position SEPARATOR ', '),
         '-'
-    ) AS 'Название первичного ключа'
+    ) AS 'pk_name'
 FROM 
     information_schema.tables tab
 LEFT JOIN 
@@ -149,7 +149,6 @@ LEFT JOIN
     AND tco.table_name = kcu.table_name
 WHERE 
     tab.table_schema = 'sakila'
-    -- Убираем фильтр по BASE TABLE, чтобы включить представления
 GROUP BY 
     tab.table_name
 ORDER BY 
